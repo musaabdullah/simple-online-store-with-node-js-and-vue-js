@@ -24,14 +24,16 @@
       <div class="modal-body">
          <table class="table">
            <tr>
-             <td>avatar</td>
-             <td>first_name</td>
-             <td>email</td>
+             <td>Avatar</td>
+             <td>First_name</td>
+             <td>Email</td>
+             <td>Quantity</td>
            </tr>
            <tr class="text-dark" v-for="car in cart" :key="car.id">
-             <td><img :src="cart.avatar" style="width:50px; height:50px"></td>
-             <td>{{ cart.first_name }}</td>
-             <td>{{ cart.email }}</td>
+             <td><img :src="car.avatar" style="width:50px; height:50px"></td>
+             <td>{{ car.first_name }}</td>
+             <td>{{ car.email }}</td>
+             <td>{{ car.quntity }}</td>
            </tr>
          </table>
       </div>
@@ -65,6 +67,7 @@
       users: [],
       cartNumber: 0,
       cart:[],
+      item: 0,
     },
     mounted: function() {
      fetch('https://reqres.in/api/users?page=2')
@@ -77,8 +80,17 @@
     },
     methods :{
       addToCart(user){
-        this.cart.push(user);
-        this.cartNumber++;
+    
+        this.item = this.cart.length;
+        for(var i=0; i <= this.item; i++) {
+          if(this.cart.id === user.id){
+            this.cart.quantity += 1;  
+          } else {
+            this.cart.push(user);
+            this.cartNumber++;
+          }
+        }
+        
       }
     }
   })
